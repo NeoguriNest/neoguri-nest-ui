@@ -1,5 +1,5 @@
 <template>
-  <Tutorial/>
+  <!-- TODO: 너구리 소굴 Intro  -->
 </template>
 
 <script lang="ts">
