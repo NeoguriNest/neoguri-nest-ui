@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'neoguri-nest-ui',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ko'
     },
     meta: [
       { charset: 'utf-8' },
