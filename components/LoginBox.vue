@@ -17,8 +17,11 @@
 </template>
 
 <script>
-export default {
-  name: "LoginBox"
+import { Component } from "nuxt-property-decorator";
+import Vue from "vue";
+
+@Component({})
+export default class LoginBox extends Vue {
 }
 </script>
 

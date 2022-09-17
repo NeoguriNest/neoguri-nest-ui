@@ -11,17 +11,21 @@
       </div>
     </div>
 
-    <h5 class="mb-0 text-center">{{ title }}</h5>
+    <h5 class="neoguri-font-weight-500 mb-0 text-center">{{ title }}</h5>
   </div>
 </template>
 
 <script>
-export default {
-  name: "HeaderBox",
-  props: {
-    title: String
-  }
+import { Component, Prop } from "nuxt-property-decorator";
+import Vue from "vue";
+
+@Component({})
+export default class HeaderBox extends Vue {
+
+  @Prop({ type: String })
+  title
 }
+
 </script>
 
 <style scoped>
