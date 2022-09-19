@@ -1,13 +1,13 @@
 <script lang="ts">
-import AbstractInput from "~/components/common/inputs/AbstractInput.vue";
-import { Component } from "nuxt-property-decorator";
+import AbstractTextInput from "~/components/common/inputs/AbstractTextInput.vue";
 
-@Component
-export default class EmailInput extends AbstractInput {
-
-  validate(): boolean {
-    return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/.test(this.value)
+export default AbstractTextInput.extend({
+  name: 'EmailInput',
+  methods: {
+    validate(): boolean {
+      return /^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/.test(this.$data.value)
+    }
   }
+})
 
-}
 </script>

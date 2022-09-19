@@ -1,13 +1,12 @@
 <script lang="ts">
-import AbstractInput from "~/components/common/inputs/AbstractInput.vue";
-import { Component } from "nuxt-property-decorator";
+import AbstractPasswordInput from "~/components/common/inputs/AbstractPasswordInput.vue";
 
-@Component
-export default class PasswordInput extends AbstractInput {
-
-  validate(): boolean {
-    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/.test(this.value)
+export default AbstractPasswordInput.extend({
+  name: 'PasswordInput',
+  methods: {
+    validate(): boolean {
+      return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/.test(this.$data.value)
+    }
   }
-
-}
+})
 </script>

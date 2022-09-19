@@ -36,3 +36,15 @@
   border: 1px solid #E58E40;
   border-radius: 8px;
 }
+
+.color-neoguri-red {
+  color: #F5332B;
+}
+
+.color-neoguri-valid {
+  color: #282FCD;
+}
+
+.color-neoguri-invalid {
+  color: #E91919;
+}

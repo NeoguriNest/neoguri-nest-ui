@@ -20,7 +20,7 @@
 import { Component } from "nuxt-property-decorator";
 import Vue from "vue";
 
-@Component({})
+@Component
 export default class LoginBox extends Vue {
 }
 </script>
