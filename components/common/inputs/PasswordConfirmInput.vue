@@ -6,16 +6,20 @@ export default AbstractPasswordInput.extend({
   props: {
     validDescription: {
       type: String,
-      default: '사용 가능한 비밀번호입니다.'
+      default: '입력하신 비밀번호가 일치합니다.'
     },
     invalidDescription: {
       type: String,
-      default: '영문, 숫자, 특수문자를 각 1글자 이상 포함하여 10자 ~ 20자이내로 작성해주세요'
+      default: '입력하신 비밀번호가 불일치합니다.'
+    },
+    password: {
+      type: String,
+      required: true
     }
   },
   methods: {
     validate(): boolean {
-      return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(this.$data.value)
+      return this.$data.value === this.password
     }
   }
 })

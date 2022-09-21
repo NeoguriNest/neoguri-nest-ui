@@ -36,6 +36,11 @@
   border: 1px solid #E58E40;
   border-radius: 8px;
 }
+.neoguri-btn-lightgray {
+  color: #1F1F1F;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+}
 
 .color-neoguri-red {
   color: #F5332B;

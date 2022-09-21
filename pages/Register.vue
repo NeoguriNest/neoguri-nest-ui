@@ -4,22 +4,30 @@
 
     <div class="neoguri-container d-flex flex-column px-3 container-sm pb-5">
 
-      <div class="pt-8">
-        <LoginIdInput name="login_id" title="아이디" required />
+      <div class="pt-2">
+        <LoginIdInput name="login_id" title="아이디" v-model="loginId" confirm-button-title="중복확인" required />
       </div>
 
-      <div class="pt-8">
-        <PasswordInput name="password" title="비밀번호" required />
+      <div class="pt-2">
+        <PasswordInput name="password" title="비밀번호" v-model="password" required />
       </div>
 
-      <div class="pt-8">
-        <PasswordInput name="password_confirm" title="비밀번호 확인" required />
+      <div class="pt-2">
+        <PasswordConfirmInput name="password_confirm" title="비밀번호 확인" required :password="password" />
       </div>
 
-      <div class="pt-8">
-        <EmailInput name="email" title="이메일" required />
+      <div class="pt-2">
+        <EmailInput name="email" title="이메일" confirm-button-title="중복확인" required />
       </div>
 
+      <div v-if="this.isInvalid" class="pt-3">
+        <template v-for="description in this.invalidInputDescriptions">
+          <p class="pt-2">{{ description }}</p>
+        </template>
+      </div>
+      <div class="d-flex pt-3 flex-column">
+        <button class="neoguri-btn-style-1 py-3 border-0">너구리단 가입하기</button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +37,7 @@ import Vue from 'vue'
 import HeaderBox from '@/components/common/HeaderBox.vue'
 import LoginIdInput from '~/components/common/inputs/LoginIdInput.vue'
 import PasswordInput from '~/components/common/inputs/PasswordInput.vue'
+import PasswordConfirmInput from '~/components/common/inputs/PasswordConfirmInput.vue'
 import EmailInput from '~/components/common/inputs/EmailInput.vue'
 
 export default Vue.extend({
@@ -37,7 +46,36 @@ export default Vue.extend({
     HeaderBox,
     LoginIdInput,
     PasswordInput,
+    PasswordConfirmInput,
     EmailInput
+  },
+  data() {
+    return {
+      loginId: '',
+      password: '',
+      email: '',
+      loginIdDuplicateCheck: false,
+      emailDuplicateCheck: false,
+      serviceAgreementCheck: false,
+      invalidInputDescriptions: [],
+    }
+  },
+  computed: {
+    isInvalid(): boolean {
+      return this.$data.invalidInputDescriptions.length > 0
+    }
+  },
+  watch: {
+  },
+  methods: {
+    submit() {
+      const payload = {
+        loginId,
+        password,
+        email,
+
+      }
+    }
   }
 })
 </script>
