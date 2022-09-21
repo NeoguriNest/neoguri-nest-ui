@@ -5,13 +5,15 @@
         <span class="neoguri-font-weight-500 mb-0">{{ this.title }}</span>
         <span v-if="this.required" class="mb-0 ml-1 color-neoguri-red">*</span>
       </div>
-      <input :type="this.type" :placeholder="this.computedPlaceholder" v-model="value" class="py-3 px-4 mb-2"/>
+      <input :type="this.type" :placeholder="this.computedPlaceholder" v-model="value" class="py-3 px-4"/>
     </div>
     <div class="d-flex">
-      <span v-if="this.value.length && this.validate()" class="color-neoguri-valid">VALID {{ this.validDescription }}</span>
-      <span v-if="this.value.length && !this.validate()" class="color-neoguri-invalid">INVALID {{
-          this.invalidDescription
-        }}</span>
+      <span v-if="this.value.length && this.validate()" class="color-neoguri-valid">
+        {{ this.validDescription }}
+      </span>
+      <span v-if="this.value.length && !this.validate()" class="color-neoguri-invalid">
+        {{ this.invalidDescription }}
+      </span>
     </div>
   </div>
 </template>
@@ -65,11 +67,16 @@ export default Vue.extend(
     },
   },
   methods: {
-    validate() {
+    validate(): boolean {
       // TODO: override
       throw new Error('Method must be implemented. name: \'validate\'')
     }
   },
+  watch: {
+    value(newValue: string, oldValue: string) {
+      this.$emit('input', newValue)
+    }
+  }
 })
 </script>
 
