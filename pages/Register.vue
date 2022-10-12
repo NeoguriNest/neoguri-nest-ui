@@ -13,11 +13,11 @@
       </div>
 
       <div class="pt-2">
-        <PasswordConfirmInput name="password_confirm" title="비밀번호 확인" required :password="password" />
+        <PasswordConfirmInput name="password_confirm" title="비밀번호 확인" required v-model="passwordConfirm" :password="password.value" />
       </div>
 
       <div class="pt-2">
-        <EmailInput name="email" title="이메일" confirm-button-title="중복확인" required />
+        <EmailInput name="email" title="이메일" confirm-button-title="중복확인" v-model="email" required />
       </div>
 
       <div v-if="this.isInvalid" class="pt-3">
@@ -26,7 +26,7 @@
         </template>
       </div>
       <div class="d-flex pt-3 flex-column">
-        <button class="neoguri-btn-style-1 py-3 border-0">너구리단 가입하기</button>
+        <button class="neoguri-btn-style-1 py-3 border-0" @click="submit">너구리단 가입하기</button>
       </div>
     </div>
   </div>
@@ -51,9 +51,10 @@ export default Vue.extend({
   },
   data() {
     return {
-      loginId: '',
-      password: '',
-      email: '',
+      loginId: { value: '', isValid: false },
+      password: { value: '', isValid: false },
+      passwordConfirm: { value: '', isValid: false },
+      email: { value: '', isValid: false },
       loginIdDuplicateCheck: false,
       emailDuplicateCheck: false,
       serviceAgreementCheck: false,
@@ -69,12 +70,31 @@ export default Vue.extend({
   },
   methods: {
     submit() {
-      const payload = {
-        loginId,
-        password,
-        email,
-
+      const loginId = this.$data.loginId;
+      if (!loginId.isValid) {
+        return;
       }
+
+      const password = this.$data.password;
+      if (!password.isValid) {
+        return;
+      }
+
+      if (this.$data.passwordConfirm.isValid) {
+        return;
+      }
+
+      const email = this.$data.email;
+      if (!email.isValid) {
+        return;
+      }
+
+      const payload = {
+        loginId: loginId.value,
+        password: password.value,
+        email: email.value,
+      }
+      console.log('submit register with payload:', payload);
     }
   }
 })
