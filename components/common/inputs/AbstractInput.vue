@@ -74,7 +74,7 @@ export default Vue.extend(
   },
   watch: {
     value(newValue: string, oldValue: string) {
-      this.$emit('input', newValue)
+      this.$emit('input', { value: newValue, isValid: this.validate() } )
     }
   }
 })

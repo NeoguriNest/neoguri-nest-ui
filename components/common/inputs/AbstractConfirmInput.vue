@@ -60,8 +60,11 @@ export default AbstractInput.extend(
     },
     watch: {
       value(newValue: string, oldValue: string) {
-        this.$emit('input', newValue)
-        this.isConfirmed = false
+        this.$emit('input', { value: newValue, isValid: this.validate() } )
+
+        if (newValue !== oldValue) {
+          this.isConfirmed = false
+        }
       }
     }
 
