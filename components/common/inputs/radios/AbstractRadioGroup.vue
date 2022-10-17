@@ -5,9 +5,14 @@
         <span class="neoguri-font-weight-500 mb-0">{{ this.title }}</span>
         <span v-if="this.required" class="mb-0 ml-1 color-neoguri-red">*</span>
       </div>
-      <select v-model="value" class="py-3 px-4">
-          <option v-for="(item, index) in this.options" :value="item.value" :selected="index === 0">{{ item.title }}</option>
-      </select>
+
+      <div class="flex-column">
+        <label v-for="item in this.items">
+          <input type="radio" :name="this.name" :value="item.value" v-model="value">
+          <p>{{ item.text }}</p>
+        </label>
+      </div>
+
     </div>
     <div class="d-flex">
       <span v-if="this.value.length && this.validate()" class="color-neoguri-valid">
@@ -33,11 +38,6 @@ export default Vue.extend(
     title: {
       type: String,
     },
-    type: {
-      type: String,
-      required: true,
-      default: 'text'
-    },
     required: {
       type: Boolean,
       required: false,
@@ -45,9 +45,9 @@ export default Vue.extend(
     },
 
     /**
-     * @requires options: [{value: String, title: String}, ...]
+     * @requires items: [{value: String, title: String}, ...]
      */
-    options: {
+    items: {
       type: Array,
       required: true
     },

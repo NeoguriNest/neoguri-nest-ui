@@ -5,9 +5,14 @@
         <span class="neoguri-font-weight-500 mb-0">{{ this.title }}</span>
         <span v-if="this.required" class="mb-0 ml-1 color-neoguri-red">*</span>
       </div>
-      <select v-model="value" class="py-3 px-4">
-          <option v-for="(item, index) in this.options" :value="item.value" :selected="index === 0">{{ item.title }}</option>
-      </select>
+
+      <div class="flex-column">
+        <label class="mr-4" v-for="item in this.items">
+          <input type="radio" :name="name" :value="item.value" v-model="value">
+          {{ item.title }}
+        </label>
+      </div>
+
     </div>
     <div class="d-flex">
       <span v-if="this.value.length && this.validate()" class="color-neoguri-valid">
@@ -21,22 +26,18 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
 
-export default Vue.extend(
+import AbstractRadioGroup from "~/components/common/inputs/radios/AbstractRadioGroup.vue";
+
+export default AbstractRadioGroup.extend(
   {
-  name: 'AbstractSelect',
+  name: 'GenderRadioGroup',
   props: {
     name: {
       type: String,
     },
     title: {
       type: String,
-    },
-    type: {
-      type: String,
-      required: true,
-      default: 'text'
     },
     required: {
       type: Boolean,
@@ -45,9 +46,9 @@ export default Vue.extend(
     },
 
     /**
-     * @requires options: [{value: String, title: String}, ...]
+     * @requires items: [{value: String, title: String}, ...]
      */
-    options: {
+    items: {
       type: Array,
       required: true
     },
@@ -69,8 +70,7 @@ export default Vue.extend(
   },
   methods: {
     validate(): boolean {
-      // TODO: override
-      throw new Error('Method must be implemented. name: \'validate\'')
+      return this.$data.value !== ''
     }
   },
   watch: {
