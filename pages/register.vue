@@ -1,26 +1,10 @@
 <template>
   <div class="d-flex flex-column">
-    <template v-if="this.level == 1">
+    <template v-if="level === 1">
 
       <HeaderBox title="너구리단 가입" />
 
       <div class="neoguri-container d-flex flex-column px-3 container-sm pb-5">
-
-        <div class="pt-2">
-          <LoginIdInput name="login_id" title="아이디" v-model="loginId" confirm-button-title="중복확인" required />
-        </div>
-
-        <div class="pt-2">
-          <PasswordInput name="password" title="비밀번호" v-model="password" required />
-        </div>
-
-        <div class="pt-2">
-          <PasswordConfirmInput name="password_confirm" title="비밀번호 확인" required v-model="passwordConfirm" :password="password.value" />
-        </div>
-
-        <div class="pt-2">
-          <EmailInput name="email" title="이메일" confirm-button-title="중복확인" v-model="email" required />
-        </div>
 
         <div v-if="this.isInvalid" class="pt-3">
           <template v-for="description in this.invalidInputDescriptions">
@@ -32,23 +16,11 @@
         </div>
       </div>
     </template>
-    <template v-if="this.level == 2">
+    <template v-if="level === 2">
       <HeaderBox title="너구리 등록증 발급" />
 
       <div class="neoguri-container d-flex flex-column px-3 container-sm pb-5">
 
-        <div class="pt-2">
-          <NicknameInput name="nickname" title="닉네임" v-model="nickname" confirm-button-title="중복확인" required />
-        </div>
-        <div class="pt-2">
-          <AgeBandSelect name="age" title="연령대" v-model="age" required />
-        </div>
-        <div class="pt-2">
-          <GenderRadioGroup name="gender" title="성별" v-model="gender" :items="this.genderRadioGroup" required />
-        </div>
-        <div class="pt-2">
-          <DateInput name="birthdate" title="생일" v-model="birthdate" required />
-        </div>
 
         <div v-if="this.isInvalid" class="pt-3">
           <template v-for="description in this.invalidInputDescriptions">
@@ -66,27 +38,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import HeaderBox from '@/components/common/HeaderBox.vue'
-import LoginIdInput from '~/components/common/inputs/LoginIdInput.vue'
-import PasswordInput from '~/components/common/inputs/PasswordInput.vue'
-import PasswordConfirmInput from '~/components/common/inputs/PasswordConfirmInput.vue'
-import EmailInput from '~/components/common/inputs/EmailInput.vue'
-import NicknameInput from '~/components/common/inputs/NicknameInput.vue'
-import AgeBandSelect from '~/components/common/inputs/AgeBandSelect.vue'
-import GenderRadioGroup from "~/components/common/inputs/radios/GenderRadioGroup.vue";
-import DateInput from "~/components/common/inputs/DateInput.vue";
 
 export default Vue.extend({
   name: 'RegisterPage',
   components: {
     HeaderBox,
-    LoginIdInput,
-    PasswordInput,
-    PasswordConfirmInput,
-    EmailInput,
-    NicknameInput,
-    AgeBandSelect,
-    GenderRadioGroup,
-    DateInput,
   },
   data() {
     return {
