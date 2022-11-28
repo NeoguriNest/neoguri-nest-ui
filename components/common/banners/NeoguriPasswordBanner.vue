@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex w-100 py-4 justify-content-center">
-    <img class="neoguri-banner w-100 h-100" src="/img/intro-banner.png" alt="반갑다구리 배너"/>
+    <img class="neoguri-banner w-100 h-100" src="/img/password-banner.png" alt="암호를대라 배너"/>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: 'NeoguriIntroBanner'
+  name: 'NeoguriPasswordBanner'
 });
 
 </script>

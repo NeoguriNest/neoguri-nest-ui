@@ -6,6 +6,14 @@
   max-width: 574px;
 }
 
+.neoguri-font-100 {
+  font-size: 1rem;
+}
+
+.neoguri-font-93 {
+  font-size: 0.937rem;
+}
+
 .neoguri-font-weight-700 {
   font-weight: 700;
 }
@@ -40,6 +48,21 @@
   color: #1F1F1F;
   background-color: #F5F5F5;
   border-radius: 4px;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.bg-neoguri-lightgray {
+  background-color: #E0E0E0;
+}
+
+.color-neoguri-darkgray {
+  color: #888888;
+}
+.color-neoguri-gray {
+  color: #979797;
 }
 
 .color-neoguri-red {
