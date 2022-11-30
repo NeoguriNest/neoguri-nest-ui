@@ -30,6 +30,10 @@
   color: #BB6D26;
 }
 
+.neoguri-btn-style-1:disabled {
+  opacity: 40%;
+}
+
 .neoguri-btn-style-1 {
   color: #ffffff;
   background-color: #E58E40;
