@@ -69,6 +69,22 @@
 
   content: '';
 }
+
+.neoguri-modal {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 10;
+}
+
+.neoguri-modal-content {
+  width: 90%;
+
+}
 /**
  * ========================================================
  */
@@ -80,6 +96,10 @@
 
 .bg-neoguri-lightgray {
   background-color: #E0E0E0;
+}
+
+.bg-neoguri-orange {
+  background-color: #E58E40;
 }
 
 .color-neoguri-darkgray {
