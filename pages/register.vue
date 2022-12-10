@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column">
-    <header-box title="너구리단 가입" />
+    <header-box :title="titles[level - 1]" />
 
     <div class="neoguri-container d-flex flex-column p-3 container-sm pb-5 bg-neoguri-lightgray">
       <!-- Progress bar -->
@@ -92,13 +92,14 @@
           </div>
           <neoguri-agreement-checkbox
             title="서비스 이용 약관에 동의합니다."
+            v-model="agreementChecked"
             :callback="openAgreementDetailModal"
           >
 
           </neoguri-agreement-checkbox>
         </div>
         <div class="d-flex mt-4 flex-column">
-          <button class="neoguri-btn-style-1 py-3 border-0" :disabled="!passwordValidation" @click="submitFirst">너구리단 가입하기</button>
+          <button class="neoguri-btn-style-1 py-3 border-0" :disabled="!(passwordValidation && agreementChecked)" @click="submitFirst">너구리단 가입하기</button>
         </div>
         <!-- 너구리단 가입 -->
       </template>
@@ -127,13 +128,79 @@
             </div>
           </neoguri-input>
         </div>
+        <div class="pt-4">
+          <neoguri-date-picker
+            name="birthdate"
+            v-model="birthdate"
+            placeholder="YYYY.MM.DD"
+            :input="() => {
 
-        <div class="d-flex pt-3 flex-column">
-          <button class="neoguri-btn-style-1 py-3 border-0" @click="">너구리단 가입하기</button>
+            }"
+          >
+            <template v-slot:title>
+              생일<span class="mb-0 ml-1 color-neoguri-red">*</span>
+            </template>
+
+            <div class="d-flex">
+              <span v-if="passwordValidation" class="color-neoguri-valid">
+                사용 가능한 암호입니다.
+              </span>
+              <span v-if="!passwordValidation" class="color-neoguri-invalid">
+                6자 이상 20자 이하로 입력해주세요.
+              </span>
+            </div>
+          </neoguri-date-picker>
+        </div>
+        <div class="pt-4">
+          <neoguri-address-input
+            name="birthdate"
+            v-model="address"
+            placeholder="YYYY.MM.DD"
+            :input="() => {
+
+            }"
+          >
+            <template v-slot:title>
+              주소<span class="mb-0 ml-1 color-neoguri-red">*</span>
+            </template>
+
+          </neoguri-address-input>
+        </div>
+        <div class="pt-4">
+          <neoguri-radio-group
+            name="gender"
+            v-model="gender"
+            :items="[
+              { title: '여성', value: 'F' },
+              { title: '남성', value: 'M' },
+              { title: '미응답', value: 'X', isDefault: true },
+            ]"
+            :input="() => {
+
+            }"
+          >
+            <template v-slot:title>
+              성별
+            </template>
+
+            <div class="d-flex">
+              <span v-if="passwordValidation" class="color-neoguri-valid">
+                사용 가능한 암호입니다.
+              </span>
+              <span v-if="!passwordValidation" class="color-neoguri-invalid">
+                6자 이상 20자 이하로 입력해주세요.
+              </span>
+            </div>
+          </neoguri-radio-group>
+        </div>
+
+        <div class="d-flex mt-4 flex-column">
+          <button class="neoguri-btn-style-1 py-3 border-0" @click="submitFinal">너구리단 가입하기</button>
         </div>
         <!-- 너굴 등록증 발급 -->
       </template>
     </div>
+    <service-term-modal ref="serviceTermModal" />
   </div>
 </template>
 
@@ -142,13 +209,28 @@ import Vue from 'vue'
 import HeaderBox from '@/components/common/HeaderBox.vue'
 import NeoguriInput from "@/components/common/inputs/texts/NeoguriInput.vue";
 import NeoguriAgreementCheckbox from "@/components/common/inputs/checkboxes/NeoguriAgreementCheckbox.vue";
+import NeoguriDatePicker from "~/components/common/inputs/pickers/NeoguriDatePicker.vue";
+import NeoguriRadioGroup from "~/components/common/inputs/checkboxes/NeoguriRadioGroup.vue";
+import NeoguriAddressInput from "~/components/common/inputs/texts/NeoguriAddressInput.vue";
+import ServiceTermModal from "~/components/common/modals/ServiceTermModal.vue";
 
 export default Vue.extend({
   name: 'RegisterPage',
+  head () {
+    return {
+      script: [
+        { hid: 'script', src: 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js', defer: true },
+      ]
+    }
+  },
   components: {
     'header-box': HeaderBox,
     'neoguri-input': NeoguriInput,
-    'neoguri-agreement-checkbox': NeoguriAgreementCheckbox
+    'neoguri-address-input': NeoguriAddressInput,
+    'neoguri-date-picker': NeoguriDatePicker,
+    'neoguri-radio-group': NeoguriRadioGroup,
+    'neoguri-agreement-checkbox': NeoguriAgreementCheckbox,
+    'service-term-modal': ServiceTermModal
   },
   props: {
     titles: {
@@ -165,12 +247,16 @@ export default Vue.extend({
       maxAttachedLevel: 1,
 
       password: '',
+      agreementChecked: false,
+
       nickname: '',
       birthdate: '',
-      address: '',
-      addressDetail: '',
-      zipCode: '',
+      address: {
+        address: '',
+        addressDetail: ''
+      },
       gender: '',
+
     }
   },
   computed: {
@@ -192,10 +278,12 @@ export default Vue.extend({
     },
 
     passwordValidation() {
-      const password: string = this.$data.password;
+      const _data = this.$data;
+      const password: string = _data.password;
 
-      return password.length > 0;
-    }
+      return (password.length > 0);
+    },
+
   },
   watch: {
   },
@@ -222,6 +310,10 @@ export default Vue.extend({
     },
     openAgreementDetailModal() {
       console.log('open');
+      const _refs = this.$refs;
+      if (_refs.serviceTermModal) {
+        _refs.serviceTermModal.openModal();
+      }
     },
 
     submitFirst() {
@@ -229,7 +321,7 @@ export default Vue.extend({
     },
 
     submitFinal() {
-      this.goNext();
+      this.$router.push('/profile');
     }
 
   }
@@ -237,13 +329,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  .left {
-    left: 0;
-  }
-
-  .right {
-    right: 0;
-  }
 
   .btn-progress {
     width: 28px;
