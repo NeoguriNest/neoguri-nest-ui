@@ -2,8 +2,25 @@
   font-family: 'Pretendard';
 }
 
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
 .neoguri-container {
   max-width: 574px;
+}
+
+/**
+ * font size
+ * 텍스트 크기
+ */
+
+.neoguri-font-118 {
+  font-size: 1.187rem;
 }
 
 .neoguri-font-100 {
@@ -14,6 +31,14 @@
   font-size: 0.937rem;
 }
 
+.neoguri-font-87 {
+  font-size: 0.875rem;
+}
+
+/**
+ * font weight
+ * 텍스트 굵기
+ */
 .neoguri-font-weight-700 {
   font-weight: 700;
 }
@@ -24,6 +49,14 @@
 
 .neoguri-font-weight-400 {
   font-weight: 400;
+}
+
+/**
+ * line height
+ * 행간
+ */
+.leading-24 {
+  line-height: 24px;
 }
 
 .color-neoguri-title {
@@ -100,6 +133,10 @@
 
 .bg-neoguri-orange {
   background-color: #E58E40;
+}
+
+.bg-neoguri-pink {
+  background-color: #FB4C72;
 }
 
 .color-neoguri-darkgray {
