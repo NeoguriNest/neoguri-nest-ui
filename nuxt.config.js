@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'neoguri-nest-ui',
+    title: '너구리소굴',
     htmlAttrs: {
       lang: 'ko'
     },
