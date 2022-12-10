@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column mb-3">
+  <div class="d-flex flex-column">
     <div class="input-group flex-column mb-1">
       <div class="mb-2 d-flex">
         <span class="neoguri-font-weight-500 mb-0">
@@ -7,11 +7,12 @@
         </span>
       </div>
 
-      <div class="flex-column">
-        <label v-for="item in this.items">
-          <input type="radio" :name="this.name" :value="item.value" v-model="value">
-          <p>{{ item.text }}</p>
+      <div class="d-flex flex-row">
+        <label v-for="item in items" class="d-flex flex-row justify-content-center align-items-center mb-0 py-1" :active="value === item.value">
+          <input type="radio" :name="name" :value="item.value" v-model="value" :checked="item.isDefault">
+          <p class="mb-0">{{ item.title }}</p>
         </label>
+
       </div>
     </div>
   </div>
@@ -31,7 +32,7 @@ export default Vue.extend(
       type: String,
     },
     /**
-     * @requires items: [{value: String, title: String}, ...]
+     * @requires items: [{value: String, title: String, isDefault?: boolean}, ...]
      */
     items: {
       type: Array,
@@ -56,12 +57,25 @@ export default Vue.extend(
 </script>
 
 <style scoped>
-select {
-  border: 1px solid #DFDFDF;
-}
+  label {
+    min-width: 80px;
+    margin-left: 10px;
+    border: 1px solid #DFDFDF;
+    background-color: #FFFFFF;
+  }
 
-select::placeholder {
-  color: #949494;
-}
+  label:first-child {
+    margin-left: 0;
+  }
+
+  label[active=true] {
+    color: #FFFFFF;
+    border: none;
+    background-color: #E58E40;
+  }
+
+  input[type=radio] {
+    display: none;
+  }
 
 </style>

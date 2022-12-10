@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column mb-3">
+  <div class="d-flex flex-column">
     <div class="input-group flex-column mb-1">
       <div class="mb-2 d-flex">
         <span class="neoguri-font-weight-500 mb-0">
